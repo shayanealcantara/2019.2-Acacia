@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 from scripts.wait_for_db import start_services
 from django.utils.translation import ugettext_lazy as _
 
@@ -142,6 +143,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 
 REST_FRAMEWORK = {
@@ -158,3 +161,5 @@ CORS_ORIGIN_WHITELIST = [
 	"http://0.0.0.0:8080",
 	"http://0.0.0.0:8000",
 ]
+
+django_heroku.settings(locals())
