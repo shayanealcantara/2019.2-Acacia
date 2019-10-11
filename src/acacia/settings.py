@@ -100,10 +100,10 @@ DATABASES = {
         'HOST': 'db',
         'PORT': '5432',
     }
-    db_from_env = dj_database_url.config(conn_max_age=600)
-    DATABASES['default'].update(db_from_env)
 }
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # STARTS SERVICES THAT DJANGO DEPENDS E.G. postgres
 start_services()
@@ -151,11 +151,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-EDIA_ROOT = os.path.join(BASE_DIR,'media')
+STATIC_URL = '/static/'#location where django collect all static files
+STATIC_ROOT = os.path.join(BASE_DIR,'static')# location where you will store your static files
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'acacia/static')
+]
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
