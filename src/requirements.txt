@@ -1,4 +1,0 @@
-Babel==2.7.0
-pytz==2019.2
-sqlparse==0.3.0
-                    

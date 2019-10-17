@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from scripts.wait_for_db import start_services
 from django.utils.translation import ugettext_lazy as _
-import dj_database_url
 
 from .wait_db import start_services
 
@@ -26,13 +25,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o8i1rj77rfrpx5x@#6pad8=sn@wl9ri)-uh5#r7f_jrh-ki&mh'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'acacia-backend.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0']
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -54,8 +51,6 @@ INSTALLED_APPS = [
     # my apps
     'users',
 
-    #heroku
-    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +63,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'acacia.urls'
@@ -102,9 +96,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 # STARTS SERVICES THAT DJANGO DEPENDS E.G. postgres
 start_services()
@@ -153,11 +144,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'#location where django collect all static files
-STATIC_ROOT = os.path.join(BASE_DIR,'static')# location where you will store your static files
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'acacia/static')
-]
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
